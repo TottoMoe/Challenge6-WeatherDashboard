@@ -28,6 +28,8 @@
   border: 1px;
 }
 
-#span {
-  width: 200px;
+button {
+  width: 270px;
+  border-radius: 0.5em;
+  margin-block: 5px;
 }

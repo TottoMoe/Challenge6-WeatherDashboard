@@ -161,14 +161,3 @@ cityFormEl.addEventListener('submit', function(e) {
 //   getCityBtn(cityNameEl.value);
 // });
 renderCurrentItem();
-
-formInputEl.each(function() {
-  var num = $(this).data('event');
-  if (num > time) {
-    $(this).addClass("future");
-  } else if (time == num) {
-    $(this).addClass("present");
-  } else {
-    $(this).addClass("past");
-  }
-});
