@@ -105,11 +105,17 @@ function renderCurrentItem() {
     /* Display current Date*/
     cityHeaderEl.textContent = lastItem.currentCity + ' (' + date + ') ';
     //iconHeaderEl.innerHTML = <img src="http://openweathermap.org/img/wn/${lastItem.currentIcon}@2x.png"></img>;
-    
     tempHeaderEl.textContent = 'Temp: '+ lastItem.curretTemp + '°F';
     windHeaderEl.textContent = 'Wind: '+ lastItem.currentWind + ' MPH';
     humHeaderEl.textContent = 'Humidity: '+ lastItem.currentHumidity + ' %';
-    uviHeaderEl.textContent = 'UV Index: '+ lastItem.currentUvi;
+    uviHeaderEl.innerHTML = 'UV Index: <span id="span"> '+ lastItem.currentUvi + ' </span>';
+    if (lastItem.currentUvi < 3) {
+      document.querySelector('span').style.backgroundColor = 'green';
+    } else if (lastItem.currentUvi < 6) {
+      document.querySelector('span').style.backgroundColor = 'orange';
+    } else {
+      document.querySelector('span').style.backgroundColor = 'red';
+    }
 
     /* Display date-1 */
     document.getElementById('date1').textContent = dateOne;
@@ -155,3 +161,14 @@ cityFormEl.addEventListener('submit', function(e) {
 //   getCityBtn(cityNameEl.value);
 // });
 renderCurrentItem();
+
+formInputEl.each(function() {
+  var num = $(this).data('event');
+  if (num > time) {
+    $(this).addClass("future");
+  } else if (time == num) {
+    $(this).addClass("present");
+  } else {
+    $(this).addClass("past");
+  }
+});
