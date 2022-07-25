@@ -8,8 +8,12 @@ var humHeaderEl = document.getElementById('humidity-header');
 var uviHeaderEl = document.getElementById('uvi-header');
 var cityListEl = document.getElementById('city-list');
 
-function getCityBtn (name) {
-  var
+function getCityBtn (city) {
+  var cityBtn = document.createElement('button');
+  var btnName = document.createTextNode(city);
+  cityBtn.appendChild(btnName);
+  cityListEl.appendChild(cityBtn);
+  console.log(cityBtn)
 }
 
 function getHeader (cityName) {
@@ -144,5 +148,9 @@ function renderCurrentItem() {
 cityFormEl.addEventListener('submit', function(e) {
   e.preventDefault();
   getHeader(cityNameEl.value);
+  getCityBtn(cityNameEl.value);
 });
+// cityFormEl.addEventListener('click', function(e) {
+//   getCityBtn(cityNameEl.value);
+// });
 renderCurrentItem();
