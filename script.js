@@ -18,7 +18,7 @@ function getCityBtn (city) {
 
 function getHeader (cityName) {
   var geoUrl = 
-  'http://api.openweathermap.org/geo/1.0/direct?q='+ cityName +'&appid=4c49f825774489d316f935b0038e0673'
+  'https://api.openweathermap.org/geo/1.0/direct?q='+ cityName +'&appid=4c49f825774489d316f935b0038e0673'
   
   fetch(geoUrl)
     .then(function (response) {
