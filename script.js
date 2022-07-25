@@ -104,7 +104,8 @@ function renderCurrentItem() {
   if (lastItem !== null) {
     /* Display current Date*/
     cityHeaderEl.textContent = lastItem.currentCity + ' (' + date + ') ';
-    // iconHeaderEl.innerHTML = icon;
+    //iconHeaderEl.innerHTML = <img src="http://openweathermap.org/img/wn/${lastItem.currentIcon}@2x.png"></img>;
+    
     tempHeaderEl.textContent = 'Temp: '+ lastItem.curretTemp + '°F';
     windHeaderEl.textContent = 'Wind: '+ lastItem.currentWind + ' MPH';
     humHeaderEl.textContent = 'Humidity: '+ lastItem.currentHumidity + ' %';
