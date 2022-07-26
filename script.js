@@ -8,12 +8,15 @@ var humHeaderEl = document.getElementById('humidity-header');
 var uviHeaderEl = document.getElementById('uvi-header');
 var cityListEl = document.getElementById('city-list');
 
+var searchedCities = [];
+
 function getCityBtn (city) {
   var cityBtn = document.createElement('button');
   var btnName = document.createTextNode(city);
+  cityBtn.setAttribute('class','cityName');
+  cityBtn.setAttribute('data-city', city);
   cityBtn.appendChild(btnName);
   cityListEl.appendChild(cityBtn);
-  console.log(cityBtn)
 }
 
 function getHeader (cityName) {
@@ -28,11 +31,11 @@ function getHeader (cityName) {
     })
     .then(function (data) {
       console.log(data);
-      getWeather(data[0].lat, data[0].lon)
+      getWeather(data[0].lat, data[0].lon, cityName)
     })
 }
 
-function getWeather(lat,lon) {
+function getWeather(lat,lon, cityName) {
   var oneCallUrl = 
   'https://api.openweathermap.org/data/2.5/onecall?lat='+ lat + '&lon='+ lon +'&units=imperial&appid=4c49f825774489d316f935b0038e0673'
   
@@ -45,7 +48,7 @@ function getWeather(lat,lon) {
     .then(function (data) {
       console.log(data);
       var current = {
-        currentCity: cityNameEl.value,
+        currentCity: cityName,
         currentDate: data.current.dt,
         currentIcon: data.current.weather[0].icon,
         curretTemp: data.current.temp,
@@ -85,8 +88,6 @@ function getWeather(lat,lon) {
       };
       localStorage.setItem('current', JSON.stringify(current));
       renderCurrentItem();
-      // console.log(data.daily[2].dt)
-      // console.log(data.current.weather[0].icon)
     })
 }
 
@@ -98,13 +99,29 @@ function renderCurrentItem() {
   var dateThree = moment.unix(lastItem.dThreeDate).format("MM/DD/YYYY");
   var dateFour = moment.unix(lastItem.dFourDate).format("MM/DD/YYYY");
   var dateFive = moment.unix(lastItem.dFiveDate).format("MM/DD/YYYY");
-  // var icon = '<img src="http://openweathermap.org/img/wn/' + lastItem.currentIcon + '@2x.png"></img>';
-  // console.log(lastItem.currentIcon);
-  // console.log(icon);
+  var weatherIcon = document.createElement('img');
+  var weatherIcon1 = document.createElement('img');
+  var weatherIcon2 = document.createElement('img');
+  var weatherIcon3 = document.createElement('img');
+  var weatherIcon4 = document.createElement('img');
+  var weatherIcon5 = document.createElement('img');
+  var iconUrl = `http://openweathermap.org/img/wn/${lastItem.currentIcon}@2x.png`;
+  var iconOne = `http://openweathermap.org/img/wn/${lastItem.dOneIcon}@2x.png`;
+  var iconTwo = `http://openweathermap.org/img/wn/${lastItem.dTwoIcon}@2x.png`;
+  var iconThree = `http://openweathermap.org/img/wn/${lastItem.dThreeIcon}@2x.png`;
+  var iconFour = `http://openweathermap.org/img/wn/${lastItem.dFourIcon}@2x.png`;
+  var iconFive = `http://openweathermap.org/img/wn/${lastItem.dFiveIcon}@2x.png`;
+  weatherIcon.setAttribute('src', iconUrl);
+  weatherIcon1.setAttribute('src', iconOne);
+  weatherIcon2.setAttribute('src', iconTwo);
+  weatherIcon3.setAttribute('src', iconThree);
+  weatherIcon4.setAttribute('src', iconFour);
+  weatherIcon5.setAttribute('src', iconFive);
+ 
   if (lastItem !== null) {
     /* Display current Date*/
     cityHeaderEl.textContent = lastItem.currentCity + ' (' + date + ') ';
-    //iconHeaderEl.innerHTML = <img src="http://openweathermap.org/img/wn/${lastItem.currentIcon}@2x.png"></img>;
+    cityHeaderEl.appendChild(weatherIcon);
     tempHeaderEl.textContent = 'Temp: '+ lastItem.curretTemp + '°F';
     windHeaderEl.textContent = 'Wind: '+ lastItem.currentWind + ' MPH';
     humHeaderEl.textContent = 'Humidity: '+ lastItem.currentHumidity + ' %';
@@ -119,30 +136,40 @@ function renderCurrentItem() {
 
     /* Display date-1 */
     document.getElementById('date1').textContent = dateOne;
+    document.getElementById('icon1').textContent = "";
+    document.getElementById('icon1').appendChild(weatherIcon1);
     document.getElementById('temp1').textContent = 'Temp: '+ lastItem.dOneTemp + '°F';
     document.getElementById('wind1').textContent = 'Wind: '+ lastItem.dOneWind + ' MPH';
     document.getElementById('humidity1').textContent = 'Humidity: '+ lastItem.dOneHum + ' %';
 
     /* Display date-2 */
     document.getElementById('date2').textContent = dateTwo;
+    document.getElementById('icon2').textContent = "";
+    document.getElementById('icon2').appendChild(weatherIcon2);
     document.getElementById('temp2').textContent = 'Temp: '+ lastItem.dTwoTemp + '°F';
     document.getElementById('wind2').textContent = 'Wind: '+ lastItem.dTwoWind + ' MPH';
     document.getElementById('humidity2').textContent = 'Humidity: '+ lastItem.dTwoHum + ' %';
 
     /* Display date-3 */
     document.getElementById('date3').textContent = dateThree;
+    document.getElementById('icon3').textContent = "";
+    document.getElementById('icon3').appendChild(weatherIcon3);
     document.getElementById('temp3').textContent = 'Temp: '+ lastItem.dThreeTemp + '°F';
     document.getElementById('wind3').textContent = 'Wind: '+ lastItem.dThreeWind + ' MPH';
     document.getElementById('humidity3').textContent = 'Humidity: '+ lastItem.dThreeHum + ' %';
 
     /* Display date-4 */
     document.getElementById('date4').textContent = dateFour;
+    document.getElementById('icon4').textContent = "";
+    document.getElementById('icon4').appendChild(weatherIcon4);
     document.getElementById('temp4').textContent = 'Temp: '+ lastItem.dFourTemp + '°F';
     document.getElementById('wind4').textContent = 'Wind: '+ lastItem.dFourWind + ' MPH';
     document.getElementById('humidity4').textContent = 'Humidity: '+ lastItem.dFourHum + ' %';
 
     /* Display date-5 */
     document.getElementById('date5').textContent = dateFive;
+    document.getElementById('icon5').textContent = "";
+    document.getElementById('icon5').appendChild(weatherIcon5);
     document.getElementById('temp5').textContent = 'Temp: '+ lastItem.dFiveTemp + '°F';
     document.getElementById('wind5').textContent = 'Wind: '+ lastItem.dFiveWind + ' MPH';
     document.getElementById('humidity5').textContent = 'Humidity: '+ lastItem.dFiveHum + ' %';
@@ -151,13 +178,29 @@ function renderCurrentItem() {
   }
 }
 
+function formSubmitHandler(event) {
+  event.preventDefault();
+  var inputCity = cityNameEl.value.trim();
+  getHeader(inputCity);
+  cityFormEl.value = '';
 
-cityFormEl.addEventListener('submit', function(e) {
-  e.preventDefault();
-  getHeader(cityNameEl.value);
-  getCityBtn(cityNameEl.value);
-});
-// cityFormEl.addEventListener('click', function(e) {
-//   getCityBtn(cityNameEl.value);
-// });
+  if(!searchedCities.includes(inputCity)) {
+    searchedCities.push(inputCity)
+
+    getCityBtn(cityNameEl.value);
+  }
+
+}
+
+function buttonClickHandler(event) {
+  event.preventDefault();
+  var reSearchCity = event.target.getAttribute('data-city');
+  console.log(reSearchCity)
+  getHeader(reSearchCity);
+  
+}
+
+cityFormEl.addEventListener('submit', formSubmitHandler);
+cityListEl.addEventListener('click', buttonClickHandler);
+
 renderCurrentItem();
