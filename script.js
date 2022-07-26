@@ -105,12 +105,12 @@ function renderCurrentItem() {
   var weatherIcon3 = document.createElement('img');
   var weatherIcon4 = document.createElement('img');
   var weatherIcon5 = document.createElement('img');
-  var iconUrl = `http://openweathermap.org/img/wn/${lastItem.currentIcon}@2x.png`;
-  var iconOne = `http://openweathermap.org/img/wn/${lastItem.dOneIcon}@2x.png`;
-  var iconTwo = `http://openweathermap.org/img/wn/${lastItem.dTwoIcon}@2x.png`;
-  var iconThree = `http://openweathermap.org/img/wn/${lastItem.dThreeIcon}@2x.png`;
-  var iconFour = `http://openweathermap.org/img/wn/${lastItem.dFourIcon}@2x.png`;
-  var iconFive = `http://openweathermap.org/img/wn/${lastItem.dFiveIcon}@2x.png`;
+  var iconUrl = `https://openweathermap.org/img/wn/${lastItem.currentIcon}@2x.png`;
+  var iconOne = `https://openweathermap.org/img/wn/${lastItem.dOneIcon}@2x.png`;
+  var iconTwo = `https://openweathermap.org/img/wn/${lastItem.dTwoIcon}@2x.png`;
+  var iconThree = `https://openweathermap.org/img/wn/${lastItem.dThreeIcon}@2x.png`;
+  var iconFour = `https://openweathermap.org/img/wn/${lastItem.dFourIcon}@2x.png`;
+  var iconFive = `https://openweathermap.org/img/wn/${lastItem.dFiveIcon}@2x.png`;
   weatherIcon.setAttribute('src', iconUrl);
   weatherIcon1.setAttribute('src', iconOne);
   weatherIcon2.setAttribute('src', iconTwo);
